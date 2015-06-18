@@ -113,6 +113,17 @@ public:
 
 	}
 
+	void Substitude(char old_char, char new_char)
+	{
+		for (unsigned int i = 0; i <= getLength(); i++)
+		{
+			if (str[i] == old_char)
+			{
+				str[i] = new_char;
+			}
+		}
+	}
+
 	void Trim()
 	{
 		unsigned int size = getLength();

@@ -151,7 +151,7 @@ class DynArray
 			{
 				Reallocate(allocated_items + arry.allocated_items);
 			}
-
+			
 			for (unsigned int i = 0; i <= arry.allocated_items; i++)
 			{
 				data[allocated_items++] = arry.data[i];
