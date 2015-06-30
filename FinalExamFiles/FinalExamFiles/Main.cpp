@@ -1,13 +1,23 @@
 #include "P2String.h"
 #include <iostream>
 
+int Fibonacci(const int index)
+{
+	if (index < 2)
+	{
+		return index;
+	}
+
+	return Fibonacci(index-1) + Fibonacci(index-2);
+}
+
 int main(int argv, char** argc)
 {
-	P2String string_1("Hola Roger");
+	unsigned int a = 0;
 
-	string_1.Substitude('o', 'i');
+	a = Fibonacci(6);
 
-	printf("%s", string_1.getString());
+	printf("%d", a);
 
 	getchar();
 
