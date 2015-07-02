@@ -267,6 +267,80 @@ public:
 
 	}
 
+	const P2String& Prefix (const P2String &string_to_prefix)
+	{
+
+		unsigned int prefix_length = strlen(string_to_prefix.str);
+		unsigned int string_length = strlen(str);
+
+		if (prefix_length + string_length + 1 > len)
+		{
+			len = prefix_length + string_length + 1;
+
+			char *tmp;
+			tmp = new char[len];
+			strcpy_s(tmp, len, string_to_prefix.str);
+			strcat_s(tmp, len, str);
+
+			delete[] str;
+			str = tmp;
+		}
+		else
+		{
+			for (unsigned int i = 0; i < string_length; i++)
+			{
+				str[i + prefix_length] = str[i];
+			}
+				
+			for (unsigned int i = 0; i < prefix_length; i++)
+			{ 
+				str[i] = string_to_prefix.str[i];
+			}
+				
+			str[prefix_length + string_length] = '\0';
+		}
+
+		return (*this);
+	}
+
+	const P2String& Prefix(const char *string_to_prefix)
+	{
+		if (string_to_prefix != NULL)
+		{
+			unsigned int prefix_length = strlen(string_to_prefix);
+			unsigned int string_length = strlen(str);
+
+			if (prefix_length + string_length + 1 > len)
+			{
+				len = prefix_length + string_length + 1;
+
+				char *tmp;
+				tmp = new char[len];
+				strcpy_s(tmp, len, string_to_prefix);
+				strcat_s(tmp, len, str);
+
+				delete[] str;
+				str = tmp;
+			}
+			else
+			{
+				for (unsigned int i = 0; i < string_length; i++)
+				{
+					str[i + prefix_length] = str[i];
+				}
+					
+				for (unsigned int i = 0; i < prefix_length; i++)
+				{
+					str[i] = string_to_prefix[i];
+				}
+					
+				str[prefix_length + string_length] = '\0';
+			}
+		}
+
+		return (*this);
+	}
+
 	const P2String& P2String::operator+= (const P2String &string)
 	{
 
