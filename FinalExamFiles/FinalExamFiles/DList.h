@@ -27,16 +27,29 @@ public:
 
 	unsigned int Count() const
 	{
-		unsigned int counter = 0;
+		unsigned int Counter = 0;
 		DNode<TYPE>* tmp = start;
 
 		while (tmp != NULL)
 		{
 			tmp = tmp->next;
-			counter++;
+			Counter++;
 		}
 
-		return counter;
+		return Counter;
+	}
+
+	const DList<TYPE>& operator+= (DList &list_to_Add)
+	{
+		DNode<TYPE> *item_to_Add = list_to_Add.getFirst();
+
+		while (item_to_Add != NULL)
+		{
+			Add(item_to_Add->data);
+			item_to_Add = item_to_Add->next;
+		}
+
+		return (*this);
 	}
 
 	void AddList(unsigned int index, const DList<TYPE>& list)
@@ -96,6 +109,25 @@ public:
 			new_node->previous = NULL;
 			start = new_node;
 		}
+	}
+
+	bool At(unsigned int index, TYPE &new_data) const
+	{
+		bool ret = false;
+		DNode<TYPE>* searching_node = start;
+
+		for (unsigned int i = 0; i < index - 1 && searching_node != NULL; ++i)
+		{
+			searching_node = searching_node->next;
+		}		
+
+		if (searching_node != NULL)
+		{
+			ret = true;
+			new_data = searching_node->data;
+		}
+
+		return ret;
 	}
 
 	bool Del(DNode<TYPE>* delete_node)
@@ -197,6 +229,89 @@ public:
 		}
 		return (-1); //Doesn't exist nodes
 	}
+
+	bool Insert(const DList &inserted_list, unsigned int position)
+	{
+		if (position < Count())
+		{
+			DList<TYPE> tmp_list;
+			for (unsigned int i = position; i < Count(); i++)
+			{
+				tmp_list.Add(getNodeAtPos(i)->data);
+				del(getNodeAtPos(i));
+			}
+
+			for (unsigned int i = 0; i < inserted_list.Count(); i++)
+			{
+				Add(inserted_list.getNodeAtPos(i)->data);
+			}
+
+			for (unsigned int i = 0; i < tmp_list.Count(); i++)
+			{
+				Add(tmp_list.getNodeAtPos(i)->data);
+			}
+			return true;
+		}
+		return false;
+	}
+
+	unsigned int Sort_copy()
+	{
+		unsigned int Counter = 0;
+		for (unsigned int i = 0; i < size - 1; i++)
+		{
+			for (unsigned int j = i + 1; j < size; j++)
+			{
+				Counter++;
+				if (getNodeAtPos(i)->data > getNodeAtPos(j)->data)
+					Swap(getNodeAtPos(i)->data, getNodeAtPos(j)->data);
+			}
+		}
+		return Counter;
+	}
+
+	unsigned int Sort_reference()
+	{
+		unsigned int Counter = 0;
+		DNode<TYPE> *first_node;
+		DNode<TYPE> *second_node;
+
+		for (unsigned int i = 0; i < size - 1; i++)
+		{
+			first_node = getNodeAtPos(i);
+			for (unsigned int j = i + 1; j < size; j++)
+			{
+				second_node = getNodeAtPos(j);
+				Counter++;
+
+				if (first_node->data > second_node->data)
+				{
+
+					if (first_node->previous = NULL)
+					{
+						first_node->previous = second_node->previous;
+						second_node->previous = NULL;
+					}
+					else
+						Swap(first_node->previous->next, second_node->previous->next);
+
+					if (second_node->next = NULL)
+					{
+						second_node->next = first_node->next;
+						first_node->next = NULL;
+					}
+					else
+						Swap(first_node->next->previous, second_node->next->previous);
+
+					Swap(first_node->next, second_node->next);
+					Swap(first_node->previous, second_node->previous);
+
+				}
+			}
+		}
+		return Counter;
+	}
+
 	DNode<TYPE> *getFirst() const
 	{
 		return start;
@@ -220,13 +335,13 @@ public:
 		{
 			if (start != NULL && position < Count())
 			{
-				unsigned int position_counter = 0;
+				unsigned int position_Counter = 0;
 				DNode<TYPE>* tmp = start;
 
-				while (position_counter != position)
+				while (position_Counter != position)
 				{
 					tmp = tmp->next;
-					position_counter++;
+					position_Counter++;
 				}
 				return tmp;
 			}
