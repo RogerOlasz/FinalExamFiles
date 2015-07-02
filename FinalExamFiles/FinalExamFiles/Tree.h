@@ -234,6 +234,7 @@ public:
 		while (main_stack.allocated_items != 0)
 		{
 			main_stack.Pop(node);
+			printf("%s %d\n", "Data: ", node->data);
 			list->Add(node);
 
 			DNode<TreeNode<TreeData>*>* item = node->children.getFirst();

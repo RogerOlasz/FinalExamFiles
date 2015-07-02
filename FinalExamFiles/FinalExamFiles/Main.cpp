@@ -29,23 +29,21 @@ unsigned int FibonacciIterative(unsigned int index)
 
 int main(int argv, char** argc)
 {
-	Tree<char> tree1('1');
+	Tree<int> tree1(1);
 
-	tree1.Add('2', '1');
-	tree1.Add('3', '1');
-	tree1.Add('4', '1');
-	tree1.Add('5', '2');
-	tree1.Add('6', '2');
-	tree1.Add('7', '3');
-	tree1.Add('8', '4');
-	tree1.Add('9', '4');
-	tree1.Add('10', '4');
-	tree1.Add('11', '6');
+	tree1.Add(2, 1);
+	tree1.Add(3, 1);
+	tree1.Add(4, 1);
+	tree1.Add(5, 2);
+	tree1.Add(6, 2);
+	tree1.Add(7, 3);
+	tree1.Add(8, 4);
+	tree1.Add(9, 4);
+	tree1.Add(10, 4);
+	tree1.Add(11, 6);
 
-	DList<TreeNode<char>*> check_list;
+	DList<TreeNode<int>*> check_list;
 	tree1.WidthIterative(&check_list);
-
-	check_list.Info();
 
 	getchar();
 
