@@ -224,6 +224,36 @@ public:
 	}
 
 	//Iterative methods
+	void WidthIterative(DList<TreeNode<TreeData>*>* list)
+	{
+		Stack<TreeNode<TreeData>*> main_stack;
+		Stack<TreeNode<TreeData>*> children_stack;
+		TreeNode<TreeData>* node = &root_node;
+		main_stack.Push(node);
+
+		while (main_stack.allocated_items() != 0)
+		{
+			main_stack.Pop(node);
+			list->Add(node);
+
+			DNode<TreeNode<TreeData>*>* item = node->children.getFirst();
+
+			for (; item != NULL; item = item->next)
+			{
+				children_stack.Push(item->data);
+			}
+
+			if (main_stack.allocated_items == 0)
+			{
+				while (children_stack.allocated_items != 0)
+				{
+					children_stack.Pop(node);
+					main_stack.Push(node);
+				}
+			}
+		}
+	}
+
 	void PreOrderIterative(DList<TreeNode<TreeData>*>* list)
 	{
 		Stack<TreeNode<TreeData>*> stack;
