@@ -231,7 +231,7 @@ public:
 		TreeNode<TreeData>* node = &root_node;
 		main_stack.Push(node);
 
-		while (main_stack.allocated_items() != 0)
+		while (main_stack.allocated_items != 0)
 		{
 			main_stack.Pop(node);
 			list->Add(node);

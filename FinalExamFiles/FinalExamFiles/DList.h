@@ -374,6 +374,33 @@ public:
 		return(item->data);
 	}
 
+	//TO DEBUG
+	void Info() const
+	{
+		if (start != NULL) 
+		{
+			DNode<TYPE>* tmp = start;
+			unsigned int node_num = 1;
+
+			while (tmp != NULL)
+			{
+				printf("%s %d: %s %d | %s %p | %s %p | %s %p\n",
+					"Number", node_num,
+					"Data", tmp->data,
+					"Node", tmp,
+					"Next", tmp->next,
+					"Previous", tmp->previous);
+				tmp = tmp->next;
+				node_num++;
+			}
+			printf("%s\n", "--------------------------------");
+		}
+		else
+		{
+			printf("%s\n", "Empty Double Linked List");
+		}		
+	}
+
 };
 
 #endif //__DList_H__
