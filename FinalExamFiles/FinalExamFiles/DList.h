@@ -254,32 +254,35 @@ public:
 		}
 		return false;
 	}
-
+	//Ordenar de mes petit a mes gran (Ordena per data)
 	unsigned int Sort_copy()
 	{
 		unsigned int Counter = 0;
-		for (unsigned int i = 0; i < size - 1; i++)
+		for (unsigned int i = 0; i < Count() - 1; i++)
 		{
-			for (unsigned int j = i + 1; j < size; j++)
+			for (unsigned int j = i + 1; j < Count(); j++)
 			{
 				Counter++;
 				if (getNodeAtPos(i)->data > getNodeAtPos(j)->data)
+				{
 					Swap(getNodeAtPos(i)->data, getNodeAtPos(j)->data);
+				}
+					
 			}
 		}
 		return Counter;
 	}
-
+	//Ordenar de mes petit a mes gran (Ordena per referencies)
 	unsigned int Sort_reference()
 	{
 		unsigned int Counter = 0;
 		DNode<TYPE> *first_node;
 		DNode<TYPE> *second_node;
 
-		for (unsigned int i = 0; i < size - 1; i++)
+		for (unsigned int i = 0; i < Count() - 1; i++)
 		{
 			first_node = getNodeAtPos(i);
-			for (unsigned int j = i + 1; j < size; j++)
+			for (unsigned int j = i + 1; j < Count(); j++)
 			{
 				second_node = getNodeAtPos(j);
 				Counter++;
@@ -293,7 +296,9 @@ public:
 						second_node->previous = NULL;
 					}
 					else
+					{
 						Swap(first_node->previous->next, second_node->previous->next);
+					}	
 
 					if (second_node->next = NULL)
 					{
@@ -301,7 +306,9 @@ public:
 						first_node->next = NULL;
 					}
 					else
+					{
 						Swap(first_node->next->previous, second_node->next->previous);
+					}
 
 					Swap(first_node->next, second_node->next);
 					Swap(first_node->previous, second_node->previous);
